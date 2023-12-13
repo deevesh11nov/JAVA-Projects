@@ -1,0 +1,106 @@
+Write a code to perform different operations on matrix.
+1. Addition
+You are given two matrices return the addition of
+these two matrices.
+2. Multiplication
+Given two matrices return the matrix multiplication of
+them. (Both the matrices will always be multiplicable).
+3. Transpose
+Given a Matrix calculate the transpose of the matrix
+and return it. (Number of rows and columns will be
+same)
+4. Rotate by 90
+Given a Matrix, rotate the matrix by 90 degree in
+anticlockwise direction.
+
+solution:
+public class mat{
+	int [][] matrix;
+	
+	mat(int [][] mat)
+	{
+		matrix=mat;
+	}
+		
+	
+	    public static mat add(mat a,mat b)
+	    {
+	     	int n = a.matrix.length;
+			int m = a.matrix[0].length;
+			int[][] ans = new int[n][m];
+			mat res = new mat(ans);
+			for (int i = 0; i < n; i++) {
+				for (int j = 0; j < m; j++) {
+					res.matrix[i][j] = a.matrix[i][j] + b.matrix[i][j];
+				}
+			}
+			return res; 
+	    }
+	    public static mat multiply(mat a,mat b)
+	    {
+	       	int n1 = a.matrix.length;
+			int m1 = a.matrix[0].length;
+			int n2 = b.matrix.length;
+			int m2 = b.matrix[0].length;
+			int[][] ans = new int[n1][m2];
+			mat res = new mat(ans);
+			for (int i = 0; i < n1; i++) {
+				for (int j = 0; j < m2; j++) {
+					for (int k = 0; k < n2; k++) {
+						res.matrix[i][j] += a.matrix[i][k] * b.matrix[k][j];
+					}
+				}
+			}
+			return res;
+	    }
+	    public static mat transpose(mat m)
+	    {
+	    	int n1 = m.matrix.length;
+			int m1 = m.matrix[0].length;
+			int temp;
+			for (int i = 0; i < n1; i++) {
+				for (int j = i; j < m1; j++) {
+					temp = m.matrix[i][j];
+					m.matrix[i][j] = m.matrix[j][i];
+					m.matrix[j][i] = temp;
+				}
+			}
+			return m;
+
+	    }
+	    public static mat rotate(mat m)
+	    {
+	    	int n1 = m.matrix.length;
+			int m1 = m.matrix[0].length;
+			int temp;
+			// First take Transpose
+			for (int i = 0; i < n1; i++) {
+				for (int j = i; j < m1; j++) {
+					temp = m.matrix[i][j];
+					m.matrix[i][j] = m.matrix[j][i];
+					m.matrix[j][i] = temp;
+				}
+			}
+			// Second replace ith row with (n-i)th
+			for (int i = 0; i < n1 / 2; i++) {
+				for (int j = 0; j < m1; j++) {
+					temp = m.matrix[i][j];
+					m.matrix[i][j] = m.matrix[n1 - i - 1][j];
+					m.matrix[n1 - i - 1][j] = temp;
+				}
+			}
+			return m;
+
+	    }
+	    public  void print()
+	    {
+	        for(int i=0;i<matrix.length;i++)
+	        {
+	            for(int j=0;j<matrix[0].length;j++)
+	            {
+	                System.out.print(matrix[i][j]+" ");
+	            }
+	            System.out.println();
+	        }
+	    }
+	 }
